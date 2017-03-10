@@ -1,0 +1,19 @@
+grant {
+        // Allow everything for now
+       // permission java.security.AllPermission;
+		
+		<!-- Others application-policy -->
+ 
+<!-- ..................... -->
+ 
+<!-- Security Profile Of our Software-->
+<application-policy name="LoginJSFRealm">
+    <authentication>
+        <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
+            <module-option name="dsJndiName">java:/LoginJSFRealmDS</module-option>
+            <module-option name="principalsQuery"> select pass from users where name=? </module-option>
+            <module-option name="rolesQuery"> select role_name, 'Roles' from user_roles where user_name = ? </module-option>
+        </login-module>
+    </authentication>
+</application-policy>
+};
